@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" manifest="cache.manifest">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Scooberts Kernel exploit</title>
+
+  <link rel="stylesheet" href="includes/style.css">
+</head>
+
+<body>
+
+  <!-- Welcome Screen -->
+  <div id="welcome-screen">
+
+    <div class="welcome-backdrop"></div>
+    <div class="welcome-overlay"></div>
+
+    <div class="welcome-content">
+
+      <div class="welcome-logo">
+        SCOOBERT
+      </div>
+
+      <h1>Hi There User :3</h1>
+
+      <p>Scoobert is pleased to have u here</p>
+
+      <button id="enter-site" type="button">
+        Take Me There Onichan :>
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Main Site -->
+  <div id="main-site">
+
+    <h1>Scooberts Kernel exploit</h1>
+
+    <h3 id="UA">Running on:</h3>
+
+    <hr>
+
+
+    <div class="btn-container">
+
+      <form id="kernel-options">
+
+        <input
+          type="radio"
+          name="kernel"
+          id="netctrl-exploit"
+          value="netctrl"
+        >
+
+        <label for="netctrl-exploit">
+          NetCtrl
+        </label>
+
+
+        <input
+          type="radio"
+          name="kernel"
+          id="lapse-exploit"
+          value="lapse"
+        >
+
+        <label for="lapse-exploit">
+          Lapse
+        </label>
+
+      </form>
+
+
+      <button id="jeilbrek" type="button">
+        Jeilbrek
+      </button>
+
+
+      <div class="autoJb">
+
+        <label
+          for="autoJbInput"
+          id="autoJbLabel"
+        >
+          Auto Jailbreak
+        </label>
+
+        <input
+          class="mt-2"
+          id="autoJbInput"
+          type="checkbox"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="main-layout">
+
+      <div class="media-box">
+
+        <img
+          src="includes/scoobert.jpg"
+          alt="Scoobert"
+        >
+
+      </div>
+
+
+      <pre id="console">Ready. Awaiting execution...
+</pre>
+
+    </div>
+
+  </div>
+
+
+  <!-- Error Popup -->
+
+  <div id="error-popup">
+
+    <div class="error-card">
+
+      <div class="error-icon">
+        !
+      </div>
+
+      <div class="error-content">
+
+        <div class="error-title">
+          Uh Oh!
+        </div>
+
+        <div class="error-message">
+          Scoobert Detected an error:
+        </div>
+
+        <div
+          class="error-details"
+          id="error-details"
+        >
+          This means that the current environment
+          isn't supported.
+        </div>
+
+      </div>
+
+      <button
+        id="error-close"
+        type="button"
+      >
+        Okay
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Success Popup -->
+
+  <div id="success-popup">
+
+    <div class="success-card">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <div class="success-content">
+
+        <div class="success-title">
+          Yay!
+        </div>
+
+        <div class="success-message">
+          Scoobert has jailbroken your PS4 with GoldHen!
+        </div>
+
+        <div class="success-details">
+          Have fun Onichan :>
+        </div>
+
+      </div>
+
+      <button
+        id="success-close"
+        type="button"
+      >
+        Okay
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Existing scripts -->
+
+  <script src="src/main.js"></script>
+  <script src="includes/script.js"></script>
+
+
+  <!-- Welcome screen + popup controllers -->
+
+  <script>
+
+    (function () {
+
+      var enterButton =
+        document.getElementById("enter-site");
+
+      var welcomeScreen =
+        document.getElementById("welcome-screen");
+
+      var mainSite =
+        document.getElementById("main-site");
+
+
+      if (
+        !enterButton ||
+        !welcomeScreen ||
+        !mainSite
+      ) {
+        return;
+      }
+
+
+      enterButton.addEventListener(
+        "click",
+        function () {
+
+          welcomeScreen.classList.add("hide");
+
+          setTimeout(
+            function () {
+
+              mainSite.classList.add("show");
+
+            },
+            200
+          );
+
+        }
+      );
+
+    })();
+
+
+    /*
+     * Error popup helper.
+     *
+     * Example:
+     *
+     * showScoobertError("Unsupported firmware.");
+     */
+
+    function showScoobertError(message) {
+
+      var popup =
+        document.getElementById("error-popup");
+
+      var details =
+        document.getElementById("error-details");
+
+
+      if (!popup || !details) {
+        return;
+      }
+
+
+      details.textContent = message;
+
+      popup.classList.add("show");
+
+    }
+
+
+    /*
+     * Success popup helper.
+     */
+
+    function showScoobertSuccess(message) {
+
+      var popup =
+        document.getElementById("success-popup");
+
+      var details =
+        document.querySelector(".success-details");
+
+
+      if (!popup || !details) {
+        return;
+      }
+
+
+      if (message) {
+        details.textContent = message;
+      }
+
+
+      popup.classList.add("show");
+
+    }
+
+
+    /*
+     * Close error popup.
+     */
+
+    var errorClose =
+      document.getElementById("error-close");
+
+
+    if (errorClose) {
+
+      errorClose.addEventListener(
+        "click",
+        function () {
+
+          var popup =
+            document.getElementById("error-popup");
+
+          if (popup) {
+            popup.classList.remove("show");
+          }
+
+        }
+      );
+
+    }
+
+
+    /*
+     * Close success popup.
+     */
+
+    var successClose =
+      document.getElementById("success-close");
+
+
+    if (successClose) {
+
+      successClose.addEventListener(
+        "click",
+        function () {
+
+          var popup =
+            document.getElementById("success-popup");
+
+          if (popup) {
+            popup.classList.remove("show");
+          }
+
+        }
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
