@@ -5,7 +5,7 @@ const jeilbrekBtn = document.getElementById('jeilbrek');
 const UAElement = document.getElementById("UA");
 
 const storedAutoJb = localStorage.getItem("autoJb");
-let autoJbValue = storedAutoJb !== null ? storedAutoJb === "true" : true;
+let autoJbValue = storedAutoJb !== null ? storedAutoJb === "true" : false;
 
 // choose one of kernel exploits
 var exploitChain = localStorage.getItem("exploitChain") || "lapse";
@@ -23,13 +23,13 @@ kexForm.addEventListener("change", function (event) {
 
 // jailbreak execution
 jeilbrekBtn.addEventListener("click", function (e){
-    jeilbrekBtn.disabled = true;
     stopInterval();
     doJb();
 });
 
 checkbox.addEventListener('change', function () {
     localStorage.setItem("autoJb", checkbox.checked);
+
     if (checkbox.checked == true && jeilbrekBtn.disabled == false) {
         jailbreakCountdown();
         return;
@@ -43,6 +43,7 @@ function stopInterval(){
         clearInterval(timerId);
         timerId = null;
     }
+
     label.textContent = "Auto Jailbreak";
 }
 
@@ -51,12 +52,12 @@ function jailbreakCountdown() {
 
     let countdown = 5;
     label.textContent = `Auto Jailbreaking in: ${countdown}`;
+
     timerId = setInterval(() => {
         countdown--;
         label.textContent = `Auto Jailbreaking in: ${countdown}`;
 
         if (countdown < 0) {
-            jeilbrekBtn.disabled = true; 
             clearInterval(timerId);
             timerId = null;
             label.textContent = 'Executing';
@@ -75,6 +76,7 @@ function displayCacheProgress() {
         // show a tick
         document.title = "\u2713";
     }, 1000);
+
     setTimeout(function () {
         // location.reload();
         document.title = "CSSFontFace exploit";
@@ -85,8 +87,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Cache handling
     if (window.applicationCache) {
         window.applicationCache.addEventListener("progress", cacheProgress, false);
-        window.applicationCache.oncached = function (e) { displayCacheProgress(); };
-        window.applicationCache.onupdateready = function (e) { displayCacheProgress(); };
+        window.applicationCache.oncached = function (e) {
+            displayCacheProgress();
+        };
+        window.applicationCache.onupdateready = function (e) {
+            displayCacheProgress();
+        };
     }
 
     // choose prefered exploit chain
@@ -96,8 +102,10 @@ document.addEventListener("DOMContentLoaded", function() {
         lapseRadio.checked = true;
     }
 
-    // apply autojb localStorage value
+    // Auto Jailbreak is OFF by default
     checkbox.checked = autoJbValue;
 
-    if (autoJbValue) jailbreakCountdown();
+    if (autoJbValue) {
+        jailbreakCountdown();
+    }
 });
